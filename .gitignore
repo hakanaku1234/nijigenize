@@ -1,0 +1,12 @@
+.idea
+node_modules
+
+public/assets
+live2d.min.js
+Live2DFramework.js
+PlatformManager.js
+
+typings/*
+!typings/bundle.d.ts
+!typings/live2d
+!typings/clmtrackr
