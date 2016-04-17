@@ -31,7 +31,6 @@ app.get('/', (req, res) => {
   res.send(render(Container, {
     mutable: {
       tracking: false,
-      detectingFeature: false,
       showVideo: false,
       showTrace: false,
       controllerVisible: false

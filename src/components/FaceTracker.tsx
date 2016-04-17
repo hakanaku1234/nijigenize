@@ -105,7 +105,6 @@ namespace FaceTracker {
   export interface Props {
     mutable: {
       tracking: boolean;
-      detectingFeature: boolean;
       showVideo: boolean;
       showTrace: boolean;
       stream?: MediaStream;

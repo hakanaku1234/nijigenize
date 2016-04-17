@@ -13,7 +13,6 @@ namespace State {
   export interface Mutable {
     stream?: MediaStream;
     feature?: number[][];
-    detectingFeature: boolean;
     tracking: boolean;
     showVideo: boolean;
     showTrace: boolean;
