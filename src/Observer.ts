@@ -14,7 +14,14 @@ class Observer {
     physics: any;
     textures: HTMLImageElement[];
   }): void {
-    this.update(() => ({ currentAssets }))
+    this.update((mutable) => {
+      let controllerVisible = mutable.controllerVisible;
+      if (!mutable.currentAssets) {
+        controllerVisible = true;
+        this.controllerTimeout = this.hideContollerTimeout(this.controllerTimeout);
+      }
+      return { currentAssets, controllerVisible };
+    });
   }
   
   updateParameter(live2DParameter: {[name: string]: number}): void {
@@ -38,13 +45,7 @@ class Observer {
   }
   
   onChangeModel(name: string): void {
-    this.update((mutable, immutable) => {
-      const currentModel = immutable.models[name];
-      if (currentModel && !mutable.currentModel) {
-        this.controllerTimeout = this.hideContollerTimeout(this.controllerTimeout);
-      }
-      return { currentModel: currentModel || mutable.currentModel, controllerVisible: true };
-    });
+    this.update((mutable, immutable) => ({ currentModel: immutable.models[name] || mutable.currentModel }));
   }
   
   onChangeShowVideo(showVideo: boolean): void {
