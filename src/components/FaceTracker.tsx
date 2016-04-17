@@ -85,17 +85,18 @@ class FaceTracker extends React.Component<FaceTracker.Props, void> {
       msFilter: 'FlipH',
       position: 'absolute'
     },
-      styleHidden = { display: 'none' };
+      styleHidden = { display: 'none' },
+      { showVideo, showTrace, tracking } = this.props.mutable;
     
     return <div>
-      <video ref={video => !this.video && (this.video = video)} width='320' height='240' style={ this.props.mutable.showVideo ? style : styleHidden } />
+      <video ref={video => !this.video && (this.video = video)} width='320' height='240' style={ tracking && showVideo ? style : styleHidden } />
       <canvas ref={traceCanvas => {
         if (this.traceCanvas) {
           return;
         }
         this.traceCanvas = traceCanvas;
         this.canvas2dContext = traceCanvas.getContext('2d');
-      }} width='320' height='240' style={ this.props.mutable.showTrace ? style : styleHidden } />
+      }} width='320' height='240' style={ tracking && showTrace ? style : styleHidden } />
     </div>;
   }
 }
