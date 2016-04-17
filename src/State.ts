@@ -17,6 +17,7 @@ namespace State {
     showVideo: boolean;
     showTrace: boolean;
     controllerVisible: boolean;
+    loading: boolean;
     currentModel?: Model;
     currentAssets?: {
       model: any;

@@ -30,5 +30,5 @@ export default function calculateWorker(): void {
     parameter['PARAM_BROW_R_Y'] = 2 * Math.sqrt(getDistance2(position, 29, 17)) / lipH - 4;
 
     (<any>self.postMessage)(parameter);
-    };
+  };
 }

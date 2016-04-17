@@ -33,7 +33,8 @@ app.get('/', (req, res) => {
       tracking: false,
       showVideo: false,
       showTrace: false,
-      controllerVisible: false
+      controllerVisible: false,
+      loading: false
     },
     immutable: { models }
   }));

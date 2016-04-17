@@ -6,6 +6,7 @@ import FaceTracker from './FaceTracker';
 import AssetsLoader from './AssetsLoader';
 import UserMedia from './UserMedia';
 import Controller from './Controller';
+import Loading from './Loading';
 
 class Container extends React.Component<{ immutable: State.Immutable; mutable: State.Mutable; }, State.Mutable> {
   private observer: Observer;
@@ -27,6 +28,7 @@ class Container extends React.Component<{ immutable: State.Immutable; mutable: S
       <FaceTracker {...props} />
       <AssetsLoader {...props} />
       <UserMedia {...props} />
+      <Loading {...props} />
     </div>;
   }
 }

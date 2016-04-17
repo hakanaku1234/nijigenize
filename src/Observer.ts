@@ -17,7 +17,7 @@ class Observer {
       if (!mutable.currentAssets) {
         controllerVisible = true;
       }
-      return { currentAssets, controllerVisible };
+      return { currentAssets, controllerVisible, loading: false };
     });
   }
   
@@ -42,7 +42,7 @@ class Observer {
   }
   
   onChangeModel(name: string): void {
-    this.update((mutable, immutable) => ({ currentModel: immutable.models[name] || mutable.currentModel }));
+    this.update((mutable, immutable) => ({ currentModel: immutable.models[name], loading: true }));
   }
   
   onChangeShowVideo(showVideo: boolean): void {
