@@ -10,11 +10,6 @@ class FaceTracker extends React.Component<FaceTracker.Props, void> {
   private traceCanvas: HTMLCanvasElement;
   private canvas2dContext: CanvasRenderingContext2D;
   
-  private probableNoBlinkHeights: number[] = [];
-  private probableBlinkHeights: number[] = [];
-  private probableBlinkHeight: number = null;
-  private probableBlinkDiff: number = null;
-  
   private worker: Worker;
 
   componentDidMount(): void {
@@ -26,31 +21,9 @@ class FaceTracker extends React.Component<FaceTracker.Props, void> {
       if (this.props.mutable.showTrace) {
         this.tracker.draw(this.traceCanvas);
       }
-      this.worker.postMessage({
-        position: this.tracker.getCurrentPosition(),
-        probableBlinkHeight: this.probableBlinkHeight,
-        probableBlinkDiff: this.probableBlinkDiff
-      });
+      this.worker.postMessage(this.tracker.getCurrentPosition());
     });
-    this.worker.onmessage = (event) => {
-      const { parameter, probableNoBlinkHeight, probableBlinkHeight } = event.data as {
-        parameter: { [name: string]: number },
-        probableNoBlinkHeight: number,
-        probableBlinkHeight: number
-      };
-      
-      if (probableNoBlinkHeight !== null) {
-        this.probableNoBlinkHeights.push(probableNoBlinkHeight);
-        this.probableBlinkHeights.push(probableBlinkHeight);
-        
-        if (this.probableNoBlinkHeights.length >= BLINK_SAMPLING_COUNT) {
-          this.probableBlinkHeight = getAveg(this.probableBlinkHeights);
-          this.probableBlinkDiff = getAveg(this.probableNoBlinkHeights) - this.probableBlinkHeight;
-        }
-      }
-      
-      this.props.observer.updateParameter(parameter);
-    };
+    this.worker.onmessage = (event) => this.props.observer.updateParameter(event.data);
   }
 
   shouldComponentUpdate(props: FaceTracker.Props): boolean {
