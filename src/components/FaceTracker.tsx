@@ -54,7 +54,9 @@ class FaceTracker extends React.Component<FaceTracker.Props, void> {
   }
 
   shouldComponentUpdate(props: FaceTracker.Props): boolean {
-    const shouldComponentUpdate = (props.mutable.showVideo !== this.props.mutable.showVideo) || (props.mutable.showTrace !== this.props.mutable.showTrace);
+    const shouldComponentUpdate = (props.mutable.showVideo !== this.props.mutable.showVideo)
+      || (props.mutable.showTrace !== this.props.mutable.showTrace)
+      || (props.mutable.tracking !== this.props.mutable.tracking);
     if (!props.mutable.stream) {
       return shouldComponentUpdate;
     }
