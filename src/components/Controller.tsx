@@ -3,19 +3,18 @@ import State from '../State';
 
 class Controller extends React.Component<Controller.Props, void> {
   render(): JSX.Element {
-    const style = { display: this.props.mutable.currentModel ? 'block' : 'none', marginTop: '8px' };
-    return <div>
+    const { tracking, showVideo, showTrace, controllerVisible, currentModel } = this.props.mutable,
+      style = { display: currentModel ? 'block' : 'none', marginTop: '8px' };
+    return <div style={{ display: (controllerVisible || !currentModel) ? 'block' : 'none' }}>
       <select defaultValue='0' onChange={event => this.props.observer.onChangeModel(event.currentTarget['value'])} >
         <option value='0' disabled='disabled'>Select model</option>
         {Object.keys(this.props.immutable.models).map((name, index) => <option key={index} value={name}>{name}</option>)}
       </select>
-      <button onClick={() => this.props.observer.onToggleTracking()} style={style}>{this.props.mutable.tracking ? 'Stop' : 'Start'} tracking</button>
-      <label style={style}><input type='checkbox'
-        checked={this.props.mutable.showVideo}
+      <button onClick={() => this.props.observer.onToggleTracking()} style={style}>{tracking ? 'Stop' : 'Start'} tracking</button>
+      <label style={style}><input type='checkbox' checked={showVideo}
         onChange={event => this.props.observer.onChangeShowVideo((event.currentTarget as HTMLInputElement).checked)}
       />Show tracking video</label>
-      <label style={style}><input type='checkbox'
-        checked={this.props.mutable.showTrace}
+      <label style={style}><input type='checkbox' checked={showTrace}
         onChange={event => this.props.observer.onChangeShowTrace((event.currentTarget as HTMLInputElement).checked)}
       />Show tracking trace</label>
     </div>;
@@ -28,6 +27,7 @@ namespace Controller {
       tracking: boolean;
       showVideo: boolean;
       showTrace: boolean;
+      controllerVisible: boolean;
       currentModel?: State.Model;
   };
     immutable: {

@@ -59,7 +59,7 @@ class Live2DCanvas extends React.Component<Live2DCanvas.Props, void> {
         this.aspectRatio = window.innerHeight / window.innerWidth;
         this.webGLContext = this.getWebGLContext(canvas);
         this.drawLive2D();
-    }} style={{position: 'absolute', top: 0, zIndex: -1}} />;
+    }} style={{position: 'absolute', top: 0, zIndex: -1}} onClick={() => this.props.observer.onToggleController()} />;
   }
 
   private getWebGLContext(canvas: HTMLCanvasElement): WebGLRenderingContext {
@@ -121,6 +121,9 @@ namespace Live2DCanvas {
       };
       live2DParameter?: {[name: string]: number};
     };
+    observer: {
+      onToggleController(): void;
+    }
   }
 }
 
