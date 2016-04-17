@@ -1,8 +1,6 @@
 import State from './State';
 
 class Observer {
-  private controllerTimeout: any;
-  
   constructor(private store: {
     setState: <T>(f: (state: State.Mutable, props: { immutable: State.Immutable; mutable: State.Mutable; }) => T) => void;
   }) {
@@ -18,7 +16,6 @@ class Observer {
       let controllerVisible = mutable.controllerVisible;
       if (!mutable.currentAssets) {
         controllerVisible = true;
-        this.controllerTimeout = this.hideContollerTimeout(this.controllerTimeout);
       }
       return { currentAssets, controllerVisible };
     });
@@ -57,18 +54,7 @@ class Observer {
   }
   
   onToggleController(): void {
-    this.update((mutable) => {
-      if (mutable.controllerVisible) {
-        return { controllerVisible: false };
-      }
-      this.controllerTimeout = this.hideContollerTimeout(this.controllerTimeout);
-      return { controllerVisible: true };
-    });
-  }
-  
-  private hideContollerTimeout(currentTimeout: any): any {
-    clearTimeout(currentTimeout);
-    return setTimeout(() => this.update(() => ({ controllerVisible: false })), 3000);
+    this.update((mutable) => ({ controllerVisible: !mutable.controllerVisible }));
   }
 
   private update(update: (mutable: State.Mutable, immutable: State.Immutable) => any): void {
