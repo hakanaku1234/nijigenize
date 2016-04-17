@@ -24,7 +24,15 @@ class Observer {
   }
   
   onToggleTracking(): void {
-    this.update(mutable => ({ tracking: !mutable.tracking }));
+    this.update(mutable => {
+      if (mutable.stream) {
+        mutable.stream.getTracks()[0].stop();
+      }
+      return { 
+        tracking: !mutable.tracking,
+        stream: void 0
+      };
+    });
   }
   
   onChangeModel(name: string): void {

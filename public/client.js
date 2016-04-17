@@ -19046,7 +19046,15 @@ var Observer = (function () {
         this.update(function () { return ({ stream: stream }); });
     };
     Observer.prototype.onToggleTracking = function () {
-        this.update(function (mutable) { return ({ tracking: !mutable.tracking }); });
+        this.update(function (mutable) {
+            if (mutable.stream) {
+                mutable.stream.getTracks()[0].stop();
+            }
+            return {
+                tracking: !mutable.tracking,
+                stream: void 0
+            };
+        });
     };
     Observer.prototype.onChangeModel = function (name) {
         this.update(function (mutable, immutable) { return ({ currentModel: immutable.models[name] || mutable.currentModel }); });
