@@ -7,7 +7,7 @@ Visit https://nijigenize.herokuapp.com to see how this app works.
 1. `git clone` this project to local.
 2. Download Live2D Cubism SDK for WebGL from http://sites.cybernoids.jp/cubism-sdk2/webgl/webgl_dl
 3. Copy lib/live2d.min.js, framework/Live2DFramework.js, and sample/SmapleApp1/src/PlatformManager.js from the downloaded SDK folder to this project's public/lib.
-  1. These files cannot be uploaded to github because of Live2D's license policy and threfore `.gitignore`d.
+  1. These files cannot be uploaded to github because of Live2D's terms of service and threfore `.gitignore`d.
 4. Change the implementation of PlatformManager.prototype.loadTexture which is written in the copied PlatformManager.js as follows
   ```js
   PlatformManager.prototype.loadTexture = function(path/*String*/, callback)
